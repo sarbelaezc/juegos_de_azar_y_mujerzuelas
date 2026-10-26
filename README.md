@@ -163,6 +163,8 @@ está abierta; no se sincronizan con otros dispositivos ni se guardan en una cue
    npm run build
    ```
 
+   GitHub Actions repite estas comprobaciones automáticamente en PR dirigidas a `develop` o
+   `main`, y en cada push a esas ramas. El job aparece como `CI / Tests and build`.
 4. Abre una Pull Request de `feature/...` hacia `develop` y describe los cambios y las
    verificaciones realizadas.
 5. Las versiones aprobadas se integran de `develop` a `main`. `main` es la rama de producción y
