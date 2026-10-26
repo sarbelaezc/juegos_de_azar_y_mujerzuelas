@@ -93,8 +93,9 @@ está abierta; no se sincronizan con otros dispositivos ni se guardan en una cue
 - La tarjeta debe revelar la palabra solo mientras se mantiene presionada. Al soltarla,
   cancelar la pulsación o finalizar la interacción con teclado, la palabra vuelve a ocultarse.
   Debe seguir funcionando con puntero y con teclado.
-- El botón **Siguiente palabra** avanza sin revelar la respuesta y no debe introducir
-  repeticiones. Al agotarse el banco, se informa que la partida terminó.
+- El botón **Siguiente palabra** solo se habilita después de revelar la palabra actual al menos
+  una vez. Después puede ocultarse al soltarla y avanzar sin mostrarla de nuevo; no debe
+  introducir repeticiones. Al agotarse el banco, se informa que la partida terminó.
 - **Jugar de nuevo** mezcla y reinicia el banco completo de la dificultad actual; **Cambiar
   dificultad** permite volver a elegir el nivel y comenzar una nueva partida.
 - Los bancos de `charades-words.json` deben contener palabras únicas dentro de cada dificultad.

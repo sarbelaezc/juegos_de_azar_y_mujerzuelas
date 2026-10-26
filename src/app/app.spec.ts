@@ -90,6 +90,14 @@ describe('Charadas game', () => {
 
     expect(compiled.textContent).toContain('Siguiente palabra');
     expect(compiled.querySelector('[data-testid="charades-word"]')).toBeNull();
+    const nextButton = Array.from(compiled.querySelectorAll<HTMLButtonElement>('button'))
+      .find((button) => button.textContent?.includes('Siguiente palabra'));
+    expect(nextButton?.disabled).toBe(true);
+    const remainingBeforeReveal = compiled.querySelector('[aria-live="polite"]')?.textContent;
+    nextButton?.click();
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(compiled.querySelector('[aria-live="polite"]')?.textContent).toBe(remainingBeforeReveal);
 
     const card = compiled.querySelector<HTMLButtonElement>('[data-testid="charades-card"]');
     card?.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true, button: 0 }));
@@ -100,6 +108,7 @@ describe('Charadas game', () => {
     expect(compiled.querySelector('[data-testid="charades-word"]')).toBeTruthy();
     expect(compiled.querySelector('[data-testid="charades-card"]')?.classList.contains('is-flipped'))
       .toBe(true);
+    expect(nextButton?.disabled).toBe(false);
 
     card?.dispatchEvent(new MouseEvent('pointerup', { bubbles: true, button: 0 }));
     await fixture.whenStable();
@@ -108,6 +117,12 @@ describe('Charadas game', () => {
     expect(compiled.querySelector('[data-testid="charades-word"]')).toBeNull();
     expect(compiled.querySelector('[data-testid="charades-card"]')?.classList.contains('is-flipped'))
       .toBe(false);
+    expect(nextButton?.disabled).toBe(false);
+    nextButton?.click();
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(compiled.querySelector('[aria-live="polite"]')?.textContent)
+      .not.toBe(remainingBeforeReveal);
   });
 
   it('should hide the word when the pointer interaction is cancelled', async () => {
