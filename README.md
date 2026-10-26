@@ -119,6 +119,15 @@ El archivo [`netlify.toml`](netlify.toml) configura el comando `npm run build`, 
 al abrirse o recargarse directamente. La aplicación no necesita backend, funciones, plugins ni
 variables secretas.
 
+### Sitio publicado
+
+- [Abrir Juegos de reunión](https://pa-parchar.netlify.app/)
+- [Abrir Charadas](https://pa-parchar.netlify.app/charadas)
+- [Abrir Impostor](https://pa-parchar.netlify.app/impostor)
+
+Las tres direcciones responden desde Netlify. Después de cada despliegue, comprueba también la
+navegación y recarga directa de las rutas en un navegador.
+
 ### Configuración inicial
 
 1. Sube el repositorio a GitHub, incluyendo `netlify.toml`, `package.json` y `package-lock.json`.
