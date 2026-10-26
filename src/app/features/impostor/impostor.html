@@ -74,7 +74,7 @@
                   class="w-full rounded-xl border border-line-strong bg-white px-4 py-3 text-base text-ink outline-none placeholder:text-muted/70 focus-visible:border-accent-dark focus-visible:ring-2 focus-visible:ring-amber-200"
                   [id]="'player-name-' + index"
                   [value]="nameDrafts()[index]"
-                  [attr.aria-invalid]="errorMessage().length > 0 && !nameDrafts()[index].trim()"
+                  [attr.aria-invalid]="isNameDraftInvalid(index)"
                   autocomplete="off"
                   [attr.maxlength]="30"
                   [placeholder]="'Nombre del jugador ' + (index + 1)"
