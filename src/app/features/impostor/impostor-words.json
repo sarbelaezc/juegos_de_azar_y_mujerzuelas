@@ -1,0 +1,602 @@
+{
+  "Lugares": [
+    {
+      "word": "Aeropuerto",
+      "hints": [
+        "Aquí se espera antes de viajar.",
+        "Piensa en lo que la gente suele hacer en este lugar."
+      ]
+    },
+    {
+      "word": "Acuario",
+      "hints": [
+        "Sus visitantes suelen mirar a través del vidrio.",
+        "Piensa en lo que la gente suele hacer en este lugar."
+      ]
+    },
+    {
+      "word": "Biblioteca",
+      "hints": [
+        "Es un lugar donde se pide silencio.",
+        "Piensa en lo que la gente suele hacer en este lugar."
+      ]
+    },
+    {
+      "word": "Bosque",
+      "hints": [
+        "Tiene muchos árboles y senderos.",
+        "Piensa en lo que la gente suele hacer en este lugar."
+      ]
+    },
+    {
+      "word": "Castillo",
+      "hints": [
+        "Puede tener torres, murallas y un puente.",
+        "Piensa en lo que la gente suele hacer en este lugar."
+      ]
+    },
+    {
+      "word": "Cine",
+      "hints": [
+        "La gente se sienta a mirar una pantalla grande.",
+        "Piensa en lo que la gente suele hacer en este lugar."
+      ]
+    },
+    {
+      "word": "Hospital",
+      "hints": [
+        "Allí trabajan personas que cuidan la salud.",
+        "Piensa en lo que la gente suele hacer en este lugar."
+      ]
+    },
+    {
+      "word": "Museo",
+      "hints": [
+        "Se visita para observar cosas interesantes del pasado.",
+        "Piensa en lo que la gente suele hacer en este lugar."
+      ]
+    },
+    {
+      "word": "Panadería",
+      "hints": [
+        "Por la mañana suele oler muy bien.",
+        "Piensa en lo que la gente suele hacer en este lugar."
+      ]
+    },
+    {
+      "word": "Zoológico",
+      "hints": [
+        "Las familias van a observar animales.",
+        "Piensa en lo que la gente suele hacer en este lugar."
+      ]
+    }
+  ],
+  "Transporte": [
+    {
+      "word": "Submarino",
+      "hints": [
+        "Puede viajar por debajo de la superficie.",
+        "Piensa en cómo se desplaza y por dónde puede ir."
+      ]
+    },
+    {
+      "word": "Tren",
+      "hints": [
+        "Suele detenerse en estaciones.",
+        "Piensa en cómo se desplaza y por dónde puede ir."
+      ]
+    },
+    {
+      "word": "Crucero",
+      "hints": [
+        "Es un viaje largo con camarotes y paradas.",
+        "Piensa en cómo se desplaza y por dónde puede ir."
+      ]
+    },
+    {
+      "word": "Bicicleta",
+      "hints": [
+        "Se mueve con pedales y equilibrio.",
+        "Piensa en cómo se desplaza y por dónde puede ir."
+      ]
+    },
+    {
+      "word": "Helicóptero",
+      "hints": [
+        "Puede quedarse quieto en el aire.",
+        "Piensa en cómo se desplaza y por dónde puede ir."
+      ]
+    },
+    {
+      "word": "Motocicleta",
+      "hints": [
+        "Tiene dos ruedas y suele llevar casco su conductor.",
+        "Piensa en cómo se desplaza y por dónde puede ir."
+      ]
+    }
+  ],
+  "Naturaleza": [
+    {
+      "word": "Desierto",
+      "hints": [
+        "Puede pasar mucho tiempo sin que llueva.",
+        "Recuerda qué podrías observar al aire libre o en el cielo."
+      ]
+    },
+    {
+      "word": "Isla",
+      "hints": [
+        "Está rodeada de agua por todos lados.",
+        "Recuerda qué podrías observar al aire libre o en el cielo."
+      ]
+    },
+    {
+      "word": "Luna",
+      "hints": [
+        "Se ve en el cielo y cambia de forma durante el mes.",
+        "Recuerda qué podrías observar al aire libre o en el cielo."
+      ]
+    },
+    {
+      "word": "Volcán",
+      "hints": [
+        "A veces expulsa humo, ceniza o roca caliente.",
+        "Recuerda qué podrías observar al aire libre o en el cielo."
+      ]
+    },
+    {
+      "word": "Cascada",
+      "hints": [
+        "El agua cae desde una altura.",
+        "Recuerda qué podrías observar al aire libre o en el cielo."
+      ]
+    },
+    {
+      "word": "Arcoíris",
+      "hints": [
+        "Aparece en el cielo cuando coinciden sol y lluvia.",
+        "Recuerda qué podrías observar al aire libre o en el cielo."
+      ]
+    }
+  ],
+  "Actividades": [
+    {
+      "word": "Acampada",
+      "hints": [
+        "A menudo se duerme en una tienda de campaña.",
+        "Imagina los movimientos o herramientas que se suelen usar."
+      ]
+    },
+    {
+      "word": "Mudanza",
+      "hints": [
+        "Se empacan cajas para cambiar de casa.",
+        "Imagina los movimientos o herramientas que se suelen usar."
+      ]
+    },
+    {
+      "word": "Safari",
+      "hints": [
+        "Se observan animales en su entorno natural.",
+        "Imagina los movimientos o herramientas que se suelen usar."
+      ]
+    },
+    {
+      "word": "Pescar",
+      "hints": [
+        "Se necesita paciencia y a menudo una caña.",
+        "Imagina los movimientos o herramientas que se suelen usar."
+      ]
+    },
+    {
+      "word": "Jardinería",
+      "hints": [
+        "Se cuidan plantas, tierra y herramientas.",
+        "Imagina los movimientos o herramientas que se suelen usar."
+      ]
+    },
+    {
+      "word": "Patinar",
+      "hints": [
+        "Se desliza sobre ruedas o sobre hielo.",
+        "Imagina los movimientos o herramientas que se suelen usar."
+      ]
+    }
+  ],
+  "Celebraciones": [
+    {
+      "word": "Cumpleaños",
+      "hints": [
+        "Suele incluir una torta y un deseo.",
+        "Piensa en cómo se reúne la gente para celebrarlo."
+      ]
+    },
+    {
+      "word": "Boda",
+      "hints": [
+        "Dos personas celebran una unión.",
+        "Piensa en cómo se reúne la gente para celebrarlo."
+      ]
+    },
+    {
+      "word": "Carnaval",
+      "hints": [
+        "Hay disfraces, música y desfiles.",
+        "Piensa en cómo se reúne la gente para celebrarlo."
+      ]
+    },
+    {
+      "word": "Año Nuevo",
+      "hints": [
+        "La gente suele hacer una cuenta regresiva.",
+        "Piensa en cómo se reúne la gente para celebrarlo."
+      ]
+    },
+    {
+      "word": "Graduación",
+      "hints": [
+        "Se celebra al terminar una etapa de estudios.",
+        "Piensa en cómo se reúne la gente para celebrarlo."
+      ]
+    },
+    {
+      "word": "Aniversario",
+      "hints": [
+        "Recuerda una fecha especial que se repite cada año.",
+        "Piensa en cómo se reúne la gente para celebrarlo."
+      ]
+    }
+  ],
+  "Eventos": [
+    {
+      "word": "Olimpiadas",
+      "hints": [
+        "Atletas de muchos lugares compiten cada cierto tiempo.",
+        "Imagina qué podría hacer o ver el público."
+      ]
+    },
+    {
+      "word": "Concierto",
+      "hints": [
+        "El público se reúne para escuchar música en directo.",
+        "Imagina qué podría hacer o ver el público."
+      ]
+    },
+    {
+      "word": "Feria",
+      "hints": [
+        "Puede tener puestos, juegos y atracciones.",
+        "Imagina qué podría hacer o ver el público."
+      ]
+    },
+    {
+      "word": "Maratón",
+      "hints": [
+        "Es una prueba de resistencia que se corre.",
+        "Imagina qué podría hacer o ver el público."
+      ]
+    },
+    {
+      "word": "Desfile",
+      "hints": [
+        "Personas y carrozas avanzan frente al público.",
+        "Imagina qué podría hacer o ver el público."
+      ]
+    },
+    {
+      "word": "Elecciones",
+      "hints": [
+        "Las personas votan para escoger representantes.",
+        "Imagina qué podría hacer o ver el público."
+      ]
+    }
+  ],
+  "Objetos": [
+    {
+      "word": "Paraguas",
+      "hints": [
+        "Se abre para protegerse de algo que cae del cielo.",
+        "Piensa en la función que puede tener este objeto."
+      ]
+    },
+    {
+      "word": "Brújula",
+      "hints": [
+        "Ayuda a encontrar una dirección.",
+        "Piensa en la función que puede tener este objeto."
+      ]
+    },
+    {
+      "word": "Telescopio",
+      "hints": [
+        "Permite observar cosas que están muy lejos.",
+        "Piensa en la función que puede tener este objeto."
+      ]
+    },
+    {
+      "word": "Maleta",
+      "hints": [
+        "Se llena de ropa antes de un viaje.",
+        "Piensa en la función que puede tener este objeto."
+      ]
+    },
+    {
+      "word": "Reloj",
+      "hints": [
+        "Sirve para saber cuánto falta.",
+        "Piensa en la función que puede tener este objeto."
+      ]
+    },
+    {
+      "word": "Espejo",
+      "hints": [
+        "Devuelve una imagen de quien se pone delante.",
+        "Piensa en la función que puede tener este objeto."
+      ]
+    }
+  ],
+  "Comida": [
+    {
+      "word": "Pizza",
+      "hints": [
+        "Se puede compartir en porciones triangulares.",
+        "Recuerda cómo suele prepararse, servirse o comerse."
+      ]
+    },
+    {
+      "word": "Helado",
+      "hints": [
+        "Se derrite si se deja fuera del congelador.",
+        "Recuerda cómo suele prepararse, servirse o comerse."
+      ]
+    },
+    {
+      "word": "Tacos",
+      "hints": [
+        "Se rellenan y se comen con las manos.",
+        "Recuerda cómo suele prepararse, servirse o comerse."
+      ]
+    },
+    {
+      "word": "Palomitas",
+      "hints": [
+        "Suelen acompañar una película.",
+        "Recuerda cómo suele prepararse, servirse o comerse."
+      ]
+    },
+    {
+      "word": "Sopa",
+      "hints": [
+        "Se sirve caliente en un recipiente hondo.",
+        "Recuerda cómo suele prepararse, servirse o comerse."
+      ]
+    },
+    {
+      "word": "Sandía",
+      "hints": [
+        "Es grande, verde por fuera y roja por dentro.",
+        "Recuerda cómo suele prepararse, servirse o comerse."
+      ]
+    }
+  ],
+  "Profesiones": [
+    {
+      "word": "Astronauta",
+      "hints": [
+        "Su trabajo puede llevarlo fuera de la Tierra.",
+        "Piensa en las tareas habituales de este trabajo."
+      ]
+    },
+    {
+      "word": "Dentista",
+      "hints": [
+        "Revisa dientes y recomienda cuidar la sonrisa.",
+        "Piensa en las tareas habituales de este trabajo."
+      ]
+    },
+    {
+      "word": "Bombero",
+      "hints": [
+        "Responde a emergencias y usa equipo protector.",
+        "Piensa en las tareas habituales de este trabajo."
+      ]
+    },
+    {
+      "word": "Detective",
+      "hints": [
+        "Busca pistas para resolver un misterio.",
+        "Piensa en las tareas habituales de este trabajo."
+      ]
+    },
+    {
+      "word": "Fotógrafo",
+      "hints": [
+        "Captura momentos con una cámara.",
+        "Piensa en las tareas habituales de este trabajo."
+      ]
+    },
+    {
+      "word": "Chef",
+      "hints": [
+        "Dirige la preparación de comida en una cocina.",
+        "Piensa en las tareas habituales de este trabajo."
+      ]
+    }
+  ],
+  "Animales": [
+    {
+      "word": "Elefante",
+      "hints": [
+        "Tiene una trompa larga y grandes orejas.",
+        "Recuerda el entorno donde vive y cómo se comporta."
+      ]
+    },
+    {
+      "word": "Pingüino",
+      "hints": [
+        "Es un ave que nada, pero no vuela.",
+        "Recuerda el entorno donde vive y cómo se comporta."
+      ]
+    },
+    {
+      "word": "Jirafa",
+      "hints": [
+        "Su cuello le ayuda a alcanzar hojas altas.",
+        "Recuerda el entorno donde vive y cómo se comporta."
+      ]
+    },
+    {
+      "word": "Pulpo",
+      "hints": [
+        "Tiene ocho brazos y vive en el mar.",
+        "Recuerda el entorno donde vive y cómo se comporta."
+      ]
+    },
+    {
+      "word": "Canguro",
+      "hints": [
+        "Se desplaza dando saltos y lleva a su cría en una bolsa.",
+        "Recuerda el entorno donde vive y cómo se comporta."
+      ]
+    },
+    {
+      "word": "Tortuga",
+      "hints": [
+        "Lleva su protección sobre el cuerpo.",
+        "Recuerda el entorno donde vive y cómo se comporta."
+      ]
+    }
+  ],
+  "Deportes": [
+    {
+      "word": "Fútbol",
+      "hints": [
+        "La mayoría de los jugadores intenta usar los pies.",
+        "Piensa en el movimiento o equipo que se utiliza."
+      ]
+    },
+    {
+      "word": "Tenis",
+      "hints": [
+        "Se juega con raquetas y una red.",
+        "Piensa en el movimiento o equipo que se utiliza."
+      ]
+    },
+    {
+      "word": "Baloncesto",
+      "hints": [
+        "Hay que encestar el balón en una canasta.",
+        "Piensa en el movimiento o equipo que se utiliza."
+      ]
+    },
+    {
+      "word": "Natación",
+      "hints": [
+        "Se practica moviéndose dentro del agua.",
+        "Piensa en el movimiento o equipo que se utiliza."
+      ]
+    },
+    {
+      "word": "Boxeo",
+      "hints": [
+        "Dos contrincantes usan guantes en un cuadrilátero.",
+        "Piensa en el movimiento o equipo que se utiliza."
+      ]
+    },
+    {
+      "word": "Escalada",
+      "hints": [
+        "Se sube por una pared o una superficie rocosa.",
+        "Piensa en el movimiento o equipo que se utiliza."
+      ]
+    }
+  ],
+  "Entretenimiento": [
+    {
+      "word": "Teatro",
+      "hints": [
+        "El público observa una historia representada en vivo.",
+        "Recuerda qué hace el público para divertirse."
+      ]
+    },
+    {
+      "word": "Parque de diversiones",
+      "hints": [
+        "Tiene atracciones que dan vueltas y suben muy alto.",
+        "Recuerda qué hace el público para divertirse."
+      ]
+    },
+    {
+      "word": "Videojuego",
+      "hints": [
+        "Se juega con controles frente a una pantalla.",
+        "Recuerda qué hace el público para divertirse."
+      ]
+    },
+    {
+      "word": "Rompecabezas",
+      "hints": [
+        "Hay que unir piezas para completar una imagen.",
+        "Recuerda qué hace el público para divertirse."
+      ]
+    },
+    {
+      "word": "Karaoke",
+      "hints": [
+        "La gente canta siguiendo la letra en una pantalla.",
+        "Recuerda qué hace el público para divertirse."
+      ]
+    },
+    {
+      "word": "Magia",
+      "hints": [
+        "Un espectáculo sorprende con trucos imposibles.",
+        "Recuerda qué hace el público para divertirse."
+      ]
+    }
+  ],
+  "Hogar": [
+    {
+      "word": "Cocina",
+      "hints": [
+        "En esta habitación se preparan las comidas.",
+        "Piensa en cómo se usa dentro de una casa."
+      ]
+    },
+    {
+      "word": "Hamaca",
+      "hints": [
+        "Se cuelga entre dos puntos y sirve para descansar.",
+        "Piensa en cómo se usa dentro de una casa."
+      ]
+    },
+    {
+      "word": "Lavadora",
+      "hints": [
+        "Limpia ropa dando vueltas con agua.",
+        "Piensa en cómo se usa dentro de una casa."
+      ]
+    },
+    {
+      "word": "Almohada",
+      "hints": [
+        "Se pone bajo la cabeza para dormir.",
+        "Piensa en cómo se usa dentro de una casa."
+      ]
+    },
+    {
+      "word": "Refrigerador",
+      "hints": [
+        "Mantiene fríos los alimentos.",
+        "Piensa en cómo se usa dentro de una casa."
+      ]
+    },
+    {
+      "word": "Escalera",
+      "hints": [
+        "Sus peldaños permiten subir o bajar.",
+        "Piensa en cómo se usa dentro de una casa."
+      ]
+    }
+  ]
+}

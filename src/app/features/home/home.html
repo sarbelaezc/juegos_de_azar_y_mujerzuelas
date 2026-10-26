@@ -1,0 +1,55 @@
+<div class="mx-auto flex min-h-screen w-[calc(100%-2rem)] max-w-[1120px] flex-col sm:w-[calc(100%-3rem)]">
+  <app-site-header />
+
+  <main class="flex-1">
+    <section class="pb-20 pt-12 sm:pt-16" aria-labelledby="games-title">
+      <div class="mb-5 flex items-end justify-between gap-3">
+        <div>
+          <h1 id="games-title" class="mb-0 text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+            Elige un juego
+          </h1>
+          <p class="mb-0 mt-2 text-sm leading-6 text-muted sm:text-base">
+            Para compartir en familia o con amigos.
+          </p>
+        </div>
+        <span class="shrink-0 pb-1 text-xs tabular-nums text-muted">02 juegos</span>
+      </div>
+
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        @for (game of games; track game.name) {
+          <article
+            data-testid="game-card"
+            class="flex min-h-[235px] flex-col rounded-2xl border border-line bg-surface p-6 shadow-[0_10px_30px_rgb(49_41_28_/_3%)] sm:min-h-[260px] sm:p-8"
+            [class.border-amber-200]="game.name === 'Charadas'"
+            [class.bg-amber-50]="game.name === 'Charadas'"
+          >
+            <div class="flex items-center justify-between">
+              <span class="grid size-12 place-items-center rounded-xl bg-white/80 text-2xl" aria-hidden="true">
+                {{ game.icon }}
+              </span>
+              <span class="max-w-[9rem] rounded-full border border-amber-900/15 px-3 py-1.5 text-right text-[0.7rem] font-bold leading-4 text-accent-dark sm:max-w-none">
+                {{ game.status }}
+              </span>
+            </div>
+            <div class="mt-6">
+              <h3 class="mb-2 text-2xl font-semibold tracking-tight text-ink">{{ game.name }}</h3>
+              <p class="max-w-[300px] text-sm leading-6 text-muted">{{ game.description }}</p>
+            </div>
+            <a
+              class="mt-auto flex min-h-11 justify-between gap-4 rounded pt-6 text-xs font-bold text-accent-dark underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-dark"
+              [routerLink]="game.route"
+              [attr.aria-label]="'Ver información de ' + game.name"
+            >
+              Ver información <span aria-hidden="true">↗</span>
+            </a>
+          </article>
+        }
+      </div>
+    </section>
+  </main>
+
+  <footer class="flex flex-col gap-2 border-t border-line py-6 text-sm text-muted sm:flex-row sm:justify-between">
+    <span>Hecho para compartir buenos ratos.</span>
+    <span>Sin cuentas ni complicaciones.</span>
+  </footer>
+</div>
