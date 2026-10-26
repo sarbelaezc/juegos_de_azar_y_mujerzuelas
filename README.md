@@ -95,6 +95,7 @@ está abierta; no se sincronizan con otros dispositivos ni se guardan en una cue
   acción dentro de la tarjeta. Evita anidar enlaces u otros controles interactivos en ella.
 - Las tarjetas muestran información breve y útil, como el número de participantes, y tienen un
   indicador visible de que se puede entrar al juego.
+- El footer del home ofrece un enlace accesible al repositorio oficial de GitHub.
 
 ### Comportamiento que se debe conservar en Charadas
 

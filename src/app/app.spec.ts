@@ -30,6 +30,10 @@ describe('Home', () => {
     expect(compiled.querySelectorAll('[data-testid="game-card"] a')).toHaveLength(0);
     expect(compiled.textContent).toContain('2+ jugadores');
     expect(compiled.textContent).toContain('3–12 jugadores');
+    const repositoryLink = compiled.querySelector<HTMLAnchorElement>('footer a');
+    expect(repositoryLink?.getAttribute('href'))
+      .toBe('https://github.com/sarbelaezc/juegos_de_azar_y_mujerzuelas');
+    expect(repositoryLink?.getAttribute('rel')).toContain('noopener');
   });
 });
 
