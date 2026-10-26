@@ -121,10 +121,24 @@ export class Impostor {
     this.errorMessage.set('');
   }
 
+  protected isNameDraftInvalid(index: number): boolean {
+    if (!this.errorMessage()) {
+      return false;
+    }
+
+    const names = this.nameDrafts();
+    const name = this.normalizeName(names[index] ?? '');
+    return !name || names.filter((candidate) => this.normalizeName(candidate) === name).length > 1;
+  }
+
   protected saveNames(): void {
     const names = this.nameDrafts().map((name) => name.trim());
     if (names.some((name) => name.length === 0)) {
       this.errorMessage.set('Escribe el nombre de cada participante para continuar.');
+      return;
+    }
+    if (this.hasDuplicateNames(names)) {
+      this.errorMessage.set('Cada participante debe tener un nombre diferente.');
       return;
     }
 
@@ -153,6 +167,12 @@ export class Impostor {
     const name = this.editingName().trim();
     if (playerId === null || name.length === 0) {
       this.errorMessage.set('El nombre no puede quedar vacío.');
+      return;
+    }
+    if (this.players().some((player) =>
+      player.id !== playerId && this.normalizeName(player.name) === this.normalizeName(name),
+    )) {
+      this.errorMessage.set('Ya existe un participante con ese nombre.');
       return;
     }
 
@@ -195,7 +215,7 @@ export class Impostor {
       this.stage.set('players');
       this.impostorIds.set([]);
       this.secretWord.set(null);
-      this.votes.set([]);
+      this.votes.set({});
       this.answerRevealed.set(false);
       this.cardRevealed.set(false);
       this.roundNotice.set('Se eliminó un participante. Reparte los roles de nuevo para continuar.');
@@ -352,6 +372,15 @@ export class Impostor {
 
   private getImpostorCount(playerCount: number): number {
     return playerCount >= TWO_IMPOSTOR_THRESHOLD ? 2 : 1;
+  }
+
+  private hasDuplicateNames(names: readonly string[]): boolean {
+    const normalizedNames = names.map((name) => this.normalizeName(name));
+    return new Set(normalizedNames).size !== normalizedNames.length;
+  }
+
+  private normalizeName(name: string): string {
+    return name.trim().replace(/\s+/g, ' ').normalize('NFC').toLocaleLowerCase('es');
   }
 
   private capturePointer(event: PointerEvent): void {
