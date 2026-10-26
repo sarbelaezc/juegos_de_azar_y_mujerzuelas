@@ -14,14 +14,14 @@ export class Home {
       name: 'Charadas',
       description: 'Actúa, ríete y deja que los demás adivinen.',
       icon: '🎭',
-      status: 'Primer juego',
+      status: '2+ jugadores',
       route: '/charadas',
     },
     {
       name: 'Impostor',
       description: 'Descubran quién no sabe la palabra secreta.',
       icon: '🕵️',
-      status: 'Listo para jugar',
+      status: '3–12 jugadores',
       route: '/impostor',
     },
   ];

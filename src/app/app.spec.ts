@@ -22,8 +22,14 @@ describe('Home', () => {
 
     expect(compiled.querySelector('h1')?.textContent?.trim()).toBe('Elige un juego');
     expect(compiled.querySelectorAll('[data-testid="game-card"]')).toHaveLength(2);
-    expect(compiled.querySelector('[href="/charadas"]')).toBeTruthy();
-    expect(compiled.querySelector('[href="/impostor"]')).toBeTruthy();
+    const gameCards = compiled.querySelectorAll<HTMLAnchorElement>('[data-testid="game-card"]');
+    expect(gameCards[0].getAttribute('href')).toBe('/charadas');
+    expect(gameCards[1].getAttribute('href')).toBe('/impostor');
+    expect(gameCards[0].textContent).toContain('Jugar ahora');
+    expect(gameCards[1].textContent).toContain('Jugar ahora');
+    expect(compiled.querySelectorAll('[data-testid="game-card"] a')).toHaveLength(0);
+    expect(compiled.textContent).toContain('2+ jugadores');
+    expect(compiled.textContent).toContain('3–12 jugadores');
   });
 });
 

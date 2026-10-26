@@ -17,11 +17,12 @@
 
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
         @for (game of games; track game.name) {
-          <article
+          <a
             data-testid="game-card"
-            class="flex min-h-[235px] flex-col rounded-2xl border border-line bg-surface p-6 shadow-[0_10px_30px_rgb(49_41_28_/_3%)] sm:min-h-[260px] sm:p-8"
+            class="group flex min-h-[235px] flex-col rounded-2xl border border-line bg-surface p-6 text-left no-underline shadow-[0_10px_30px_rgb(49_41_28_/_3%)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_36px_rgb(49_41_28_/_9%)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-dark sm:min-h-[260px] sm:p-8"
             [class.border-amber-200]="game.name === 'Charadas'"
             [class.bg-amber-50]="game.name === 'Charadas'"
+            [routerLink]="game.route"
           >
             <div class="flex items-center justify-between">
               <span class="grid size-12 place-items-center rounded-xl bg-white/80 text-2xl" aria-hidden="true">
@@ -35,14 +36,10 @@
               <h3 class="mb-2 text-2xl font-semibold tracking-tight text-ink">{{ game.name }}</h3>
               <p class="max-w-[300px] text-sm leading-6 text-muted">{{ game.description }}</p>
             </div>
-            <a
-              class="mt-auto flex min-h-11 justify-between gap-4 rounded pt-6 text-xs font-bold text-accent-dark underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-dark"
-              [routerLink]="game.route"
-              [attr.aria-label]="'Ver información de ' + game.name"
-            >
-              Ver información <span aria-hidden="true">↗</span>
-            </a>
-          </article>
+            <span class="mt-auto flex min-h-11 justify-between gap-4 pt-6 text-xs font-bold text-accent-dark underline-offset-4 group-hover:underline">
+              Jugar ahora <span aria-hidden="true">↗</span>
+            </span>
+          </a>
         }
       </div>
     </section>
