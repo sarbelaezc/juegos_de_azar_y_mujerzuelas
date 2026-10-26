@@ -17,11 +17,12 @@
 
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
         @for (game of games; track game.name) {
-          <article
+          <a
             data-testid="game-card"
-            class="flex min-h-[235px] flex-col rounded-2xl border border-line bg-surface p-6 shadow-[0_10px_30px_rgb(49_41_28_/_3%)] sm:min-h-[260px] sm:p-8"
+            class="group flex min-h-[235px] flex-col rounded-2xl border border-line bg-surface p-6 text-left no-underline shadow-[0_10px_30px_rgb(49_41_28_/_3%)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_36px_rgb(49_41_28_/_9%)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-dark sm:min-h-[260px] sm:p-8"
             [class.border-amber-200]="game.name === 'Charadas'"
             [class.bg-amber-50]="game.name === 'Charadas'"
+            [routerLink]="game.route"
           >
             <div class="flex items-center justify-between">
               <span class="grid size-12 place-items-center rounded-xl bg-white/80 text-2xl" aria-hidden="true">
@@ -35,21 +36,28 @@
               <h3 class="mb-2 text-2xl font-semibold tracking-tight text-ink">{{ game.name }}</h3>
               <p class="max-w-[300px] text-sm leading-6 text-muted">{{ game.description }}</p>
             </div>
-            <a
-              class="mt-auto flex min-h-11 justify-between gap-4 rounded pt-6 text-xs font-bold text-accent-dark underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-dark"
-              [routerLink]="game.route"
-              [attr.aria-label]="'Ver información de ' + game.name"
-            >
-              Ver información <span aria-hidden="true">↗</span>
-            </a>
-          </article>
+            <span class="mt-auto flex min-h-11 justify-between gap-4 pt-6 text-xs font-bold text-accent-dark underline-offset-4 group-hover:underline">
+              Jugar ahora <span aria-hidden="true">↗</span>
+            </span>
+          </a>
         }
       </div>
     </section>
   </main>
 
-  <footer class="flex flex-col gap-2 border-t border-line py-6 text-sm text-muted sm:flex-row sm:justify-between">
-    <span>Hecho para compartir buenos ratos.</span>
-    <span>Sin cuentas ni complicaciones.</span>
+  <footer class="grid grid-cols-1 justify-items-center gap-3 border-t border-line py-6 text-sm text-muted sm:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] sm:items-center">
+    <span class="sm:justify-self-start">Hecho para compartir buenos ratos.</span>
+    <a
+      class="grid size-11 place-items-center rounded-full text-accent-dark transition hover:bg-amber-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-dark"
+      href="https://github.com/sarbelaezc/juegos_de_azar_y_mujerzuelas"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Visitar el repositorio de Juegos de reunión en GitHub (se abre en una pestaña nueva)"
+    >
+      <svg class="size-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.84 1.237 1.84 1.237 1.07 1.835 2.807 1.305 3.492.998.108-.776.418-1.305.762-1.605-2.665-.3-5.467-1.333-5.467-5.931 0-1.31.468-2.381 1.235-3.221-.124-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.3 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.873.12 3.176.77.84 1.233 1.911 1.233 3.221 0 4.61-2.807 5.628-5.48 5.922.43.372.823 1.102.823 2.222 0 1.606-.015 2.9-.015 3.293 0 .319.216.694.825.576C20.565 21.796 24 17.3 24 12c0-6.63-5.37-12-12-12z" />
+      </svg>
+    </a>
+    <span class="sm:justify-self-end">Sin cuentas ni complicaciones.</span>
   </footer>
 </div>

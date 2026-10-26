@@ -22,8 +22,21 @@ describe('Home', () => {
 
     expect(compiled.querySelector('h1')?.textContent?.trim()).toBe('Elige un juego');
     expect(compiled.querySelectorAll('[data-testid="game-card"]')).toHaveLength(2);
-    expect(compiled.querySelector('[href="/charadas"]')).toBeTruthy();
-    expect(compiled.querySelector('[href="/impostor"]')).toBeTruthy();
+    const gameCards = compiled.querySelectorAll<HTMLAnchorElement>('[data-testid="game-card"]');
+    expect(gameCards[0].getAttribute('href')).toBe('/charadas');
+    expect(gameCards[1].getAttribute('href')).toBe('/impostor');
+    expect(gameCards[0].textContent).toContain('Jugar ahora');
+    expect(gameCards[1].textContent).toContain('Jugar ahora');
+    expect(compiled.querySelectorAll('[data-testid="game-card"] a')).toHaveLength(0);
+    expect(compiled.textContent).toContain('2+ jugadores');
+    expect(compiled.textContent).toContain('3–12 jugadores');
+    const repositoryLink = compiled.querySelector<HTMLAnchorElement>('footer a');
+    expect(repositoryLink?.getAttribute('href'))
+      .toBe('https://github.com/sarbelaezc/juegos_de_azar_y_mujerzuelas');
+    expect(repositoryLink?.getAttribute('rel')).toContain('noopener');
+    expect(repositoryLink?.getAttribute('aria-label')).toContain('GitHub');
+    expect(repositoryLink?.querySelector('svg')).toBeTruthy();
+    expect(repositoryLink?.textContent?.trim()).toBe('');
   });
 });
 
@@ -90,6 +103,14 @@ describe('Charadas game', () => {
 
     expect(compiled.textContent).toContain('Siguiente palabra');
     expect(compiled.querySelector('[data-testid="charades-word"]')).toBeNull();
+    const nextButton = Array.from(compiled.querySelectorAll<HTMLButtonElement>('button'))
+      .find((button) => button.textContent?.includes('Siguiente palabra'));
+    expect(nextButton?.disabled).toBe(true);
+    const remainingBeforeReveal = compiled.querySelector('[aria-live="polite"]')?.textContent;
+    nextButton?.click();
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(compiled.querySelector('[aria-live="polite"]')?.textContent).toBe(remainingBeforeReveal);
 
     const card = compiled.querySelector<HTMLButtonElement>('[data-testid="charades-card"]');
     card?.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true, button: 0 }));
@@ -100,6 +121,7 @@ describe('Charadas game', () => {
     expect(compiled.querySelector('[data-testid="charades-word"]')).toBeTruthy();
     expect(compiled.querySelector('[data-testid="charades-card"]')?.classList.contains('is-flipped'))
       .toBe(true);
+    expect(nextButton?.disabled).toBe(false);
 
     card?.dispatchEvent(new MouseEvent('pointerup', { bubbles: true, button: 0 }));
     await fixture.whenStable();
@@ -108,6 +130,12 @@ describe('Charadas game', () => {
     expect(compiled.querySelector('[data-testid="charades-word"]')).toBeNull();
     expect(compiled.querySelector('[data-testid="charades-card"]')?.classList.contains('is-flipped'))
       .toBe(false);
+    expect(nextButton?.disabled).toBe(false);
+    nextButton?.click();
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(compiled.querySelector('[aria-live="polite"]')?.textContent)
+      .not.toBe(remainingBeforeReveal);
   });
 
   it('should hide the word when the pointer interaction is cancelled', async () => {

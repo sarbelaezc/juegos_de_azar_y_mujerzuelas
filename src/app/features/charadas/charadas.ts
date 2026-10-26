@@ -25,6 +25,7 @@ export class Charadas {
   protected readonly started = signal(false);
   protected readonly currentWord = signal<string | null>(null);
   protected readonly revealed = signal(false);
+  protected readonly currentWordWasRevealed = signal(false);
   protected readonly wordsLeft = signal<string[]>([]);
   protected readonly remainingCount = computed(() => this.wordsLeft().length);
   protected readonly bankSize = computed(() => CHARADES_WORDS[this.difficulty()].length);
@@ -52,6 +53,7 @@ export class Charadas {
     this.capturePointer(event);
     if (this.currentWord()) {
       this.revealed.set(true);
+      this.currentWordWasRevealed.set(true);
     }
   }
 
@@ -61,7 +63,10 @@ export class Charadas {
     }
 
     event.preventDefault();
-    this.revealed.set(true);
+    if (this.currentWord()) {
+      this.revealed.set(true);
+      this.currentWordWasRevealed.set(true);
+    }
   }
 
   protected hideWord(): void {
@@ -75,6 +80,10 @@ export class Charadas {
   }
 
   protected nextWord(): void {
+    if (!this.currentWordWasRevealed()) {
+      return;
+    }
+
     this.drawWord();
   }
 
@@ -86,6 +95,7 @@ export class Charadas {
     this.started.set(false);
     this.currentWord.set(null);
     this.revealed.set(false);
+    this.currentWordWasRevealed.set(false);
     this.wordsLeft.set([]);
   }
 
@@ -94,12 +104,14 @@ export class Charadas {
     if (words.length === 0) {
       this.currentWord.set(null);
       this.revealed.set(false);
+      this.currentWordWasRevealed.set(false);
       return;
     }
 
     const index = Math.floor(Math.random() * words.length);
     this.currentWord.set(words[index]);
     this.revealed.set(false);
+    this.currentWordWasRevealed.set(false);
     this.wordsLeft.set(words.filter((_, wordIndex) => wordIndex !== index));
   }
 

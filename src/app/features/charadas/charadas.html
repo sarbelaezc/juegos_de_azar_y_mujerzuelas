@@ -115,6 +115,7 @@
           <button
             class="min-h-12 flex-1 rounded-xl border border-amber-900/20 bg-white px-5 py-3.5 font-bold text-accent-dark transition hover:bg-amber-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-dark"
             type="button"
+            [disabled]="!currentWordWasRevealed()"
             (click)="nextWord()"
           >
             Siguiente palabra
