@@ -26,6 +26,7 @@ export class Charadas {
   protected readonly currentWord = signal<string | null>(null);
   protected readonly revealed = signal(false);
   protected readonly currentWordWasRevealed = signal(false);
+  protected readonly wordAnimation = signal(false);
   protected readonly wordsLeft = signal<string[]>([]);
   protected readonly remainingCount = computed(() => this.wordsLeft().length);
   protected readonly bankSize = computed(() => CHARADES_WORDS[this.difficulty()].length);
@@ -110,6 +111,7 @@ export class Charadas {
 
     const index = Math.floor(Math.random() * words.length);
     this.currentWord.set(words[index]);
+    this.wordAnimation.update((animated) => !animated);
     this.revealed.set(false);
     this.currentWordWasRevealed.set(false);
     this.wordsLeft.set(words.filter((_, wordIndex) => wordIndex !== index));

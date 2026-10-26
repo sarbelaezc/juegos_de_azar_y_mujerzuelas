@@ -106,6 +106,9 @@ describe('Charadas game', () => {
     const nextButton = Array.from(compiled.querySelectorAll<HTMLButtonElement>('button'))
       .find((button) => button.textContent?.includes('Siguiente palabra'));
     expect(nextButton?.disabled).toBe(true);
+    expect(nextButton?.className).toContain('disabled:bg-stone-100');
+    expect(compiled.querySelector('#next-word-help')?.textContent)
+      .toContain('Mantén presionada la tarjeta');
     const remainingBeforeReveal = compiled.querySelector('[aria-live="polite"]')?.textContent;
     nextButton?.click();
     await fixture.whenStable();
@@ -122,6 +125,11 @@ describe('Charadas game', () => {
     expect(compiled.querySelector('[data-testid="charades-card"]')?.classList.contains('is-flipped'))
       .toBe(true);
     expect(nextButton?.disabled).toBe(false);
+    expect(compiled.querySelector('#next-word-help')?.textContent)
+      .toContain('Ya puedes pasar a la siguiente palabra');
+    const cardAnimationBeforeNext = compiled
+      .querySelector<HTMLButtonElement>('[aria-label*="Mantén presionada"]')
+      ?.classList.contains('word-change-a');
 
     card?.dispatchEvent(new MouseEvent('pointerup', { bubbles: true, button: 0 }));
     await fixture.whenStable();
@@ -134,6 +142,8 @@ describe('Charadas game', () => {
     nextButton?.click();
     await fixture.whenStable();
     fixture.detectChanges();
+    expect(compiled.querySelector<HTMLButtonElement>('[aria-label*="Mantén presionada"]')
+      ?.classList.contains('word-change-a')).toBe(!cardAnimationBeforeNext);
     expect(compiled.querySelector('[aria-live="polite"]')?.textContent)
       .not.toBe(remainingBeforeReveal);
   });

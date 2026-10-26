@@ -69,10 +69,57 @@
   .flip-card-back {
     transform: rotateY(180deg);
   }
+
+  .word-change-a {
+    animation: charades-word-change-a 360ms ease-out;
+  }
+
+  .word-change-b {
+    animation: charades-word-change-b 360ms ease-out;
+  }
+}
+
+@keyframes charades-word-change-a {
+  0% {
+    transform: translateY(0) scale(1);
+    filter: drop-shadow(0 0 0 rgb(118 81 35 / 0%));
+  }
+
+  40% {
+    transform: translateY(-5px) scale(1.015);
+    filter: drop-shadow(0 8px 8px rgb(118 81 35 / 18%));
+  }
+
+  100% {
+    transform: translateY(0) scale(1);
+    filter: drop-shadow(0 0 0 rgb(118 81 35 / 0%));
+  }
+}
+
+@keyframes charades-word-change-b {
+  0% {
+    transform: translateY(0) scale(1);
+    filter: drop-shadow(0 0 0 rgb(118 81 35 / 0%));
+  }
+
+  40% {
+    transform: translateY(5px) scale(1.015);
+    filter: drop-shadow(0 8px 8px rgb(118 81 35 / 18%));
+  }
+
+  100% {
+    transform: translateY(0) scale(1);
+    filter: drop-shadow(0 0 0 rgb(118 81 35 / 0%));
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .flip-card-inner {
     transition-duration: 0.01ms;
+  }
+
+  .word-change-a,
+  .word-change-b {
+    animation-duration: 0.01ms;
   }
 }
