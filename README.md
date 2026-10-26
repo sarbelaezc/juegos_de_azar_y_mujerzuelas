@@ -84,6 +84,51 @@ categorías y cada palabra contiene varias pistas.
 Los nombres y el estado de una partida se mantienen en el dispositivo mientras la aplicación
 está abierta; no se sincronizan con otros dispositivos ni se guardan en una cuenta o backend.
 
+### Comportamiento que se debe conservar en Charadas
+
+- Debe haber tres dificultades seleccionables: fácil, intermedio y difícil. Cada una usa su
+  propio banco de palabras.
+- Las palabras se seleccionan al azar sin repetirse durante una partida, hasta agotar el banco
+  de la dificultad elegida. El tamaño mostrado debe corresponder al banco real.
+- La tarjeta debe revelar la palabra solo mientras se mantiene presionada. Al soltarla,
+  cancelar la pulsación o finalizar la interacción con teclado, la palabra vuelve a ocultarse.
+  Debe seguir funcionando con puntero y con teclado.
+- El botón **Siguiente palabra** avanza sin revelar la respuesta y no debe introducir
+  repeticiones. Al agotarse el banco, se informa que la partida terminó.
+- **Jugar de nuevo** mezcla y reinicia el banco completo de la dificultad actual; **Cambiar
+  dificultad** permite volver a elegir el nivel y comenzar una nueva partida.
+- Los bancos de `charades-words.json` deben contener palabras únicas dentro de cada dificultad.
+  Al añadir o modificar estas reglas, actualizar las pruebas de `src/app/app.spec.ts`, que
+  cubren el revelado, la cancelación, el uso de teclado, la ausencia de repeticiones y el reinicio.
+
+### Comportamiento que se debe conservar en Impostor
+
+- La configuración debe solicitar primero la cantidad de participantes —de 3 a 12— y anunciar
+  cuántos impostores habrá: uno con 3 a 6 jugadores y dos con 7 a 12.
+- El mínimo de 3 permite jugar con un impostor y dos participantes restantes. El máximo de 12
+  es un límite de diseño para mantener manejable una partida en un solo dispositivo.
+- Antes de repartir roles, todos los participantes deben tener un nombre no vacío y único
+  (ignorando mayúsculas, minúsculas y espacios adicionales). Se deben poder editar, ordenar,
+  agregar o eliminar participantes, respetando el mínimo y máximo.
+- Cada ronda asigna al azar una palabra del banco categorizado, los impostores y una pista para
+  cada impostor. El banco de `impostor-words.json` debe mantener palabras únicas y al menos dos
+  pistas no vacías por palabra.
+- Los roles se revisan en privado pasando un mismo dispositivo, de uno en uno. La tarjeta revela
+  el rol mientras se mantiene presionada y lo oculta al soltarla o cancelar la interacción; debe
+  funcionar con puntero y teclado. Los jugadores normales reciben la palabra secreta y cada
+  impostor recibe su pista, sin revelar la palabra.
+- Durante el reparto debe quedar visible quién está revisando y el orden se puede modificar. Si
+  se elimina a un participante durante la ronda, se deben invalidar los roles y repartirlos de
+  nuevo antes de continuar.
+- Tras el reparto, el grupo puede debatir y pasar a una votación pública por participante.
+  Deben permitirse entre cero y tantos votos por persona como jugadores haya, el total no puede
+  superar el número de participantes y no se puede finalizar una votación vacía.
+- Los resultados deben resaltar quién era realmente impostor, contemplar empates y permitir
+  revelar la palabra y su categoría. La solución no debe mostrarse durante la revisión privada.
+- Al cambiar estas reglas, actualizar las pruebas en `src/app/app.spec.ts` para cubrir límites
+  de participantes, nombres duplicados, asignación de roles, pista, privacidad y ocultamiento,
+  reordenamiento, eliminación, suma y resta de votos, empates y resultados con uno o dos impostores.
+
 ## Contribuir
 
 1. Crea una rama de funcionalidad desde `develop`, usando un nombre descriptivo:

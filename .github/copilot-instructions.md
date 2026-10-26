@@ -56,3 +56,11 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Design services around a single responsibility
 - Use the `providedIn: 'root'` option for singleton services
 - Use the `inject()` function instead of constructor injection
+
+## Project Requirements and Development Workflow
+
+- Treat the README as the source of truth for the project's documented features, behaviors, and contribution workflow.
+- Before changing or extending a feature, read its requirements in the README and preserve every established behavior unless the user explicitly requests a change.
+- Document every new user-facing feature or functionality in the README in the same change. Keep its feature requirements current when behavior is intentionally changed or removed.
+- Add or update tests for new functionality and existing behaviors affected by a change. Keep the README's documented behavior and the tests consistent.
+- Follow the contribution workflow in the README: create feature branches from `develop`, use focused changes and clear Conventional Commit messages, run `npm test -- --watch=false` and `npm run build` before opening a pull request, and target feature pull requests at `develop`. Promote approved releases from `develop` to `main`.
