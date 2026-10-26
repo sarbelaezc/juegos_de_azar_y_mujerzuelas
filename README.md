@@ -113,8 +113,10 @@ está abierta; no se sincronizan con otros dispositivos ni se guardan en una cue
 - **Jugar de nuevo** mezcla y reinicia el banco completo de la dificultad actual; **Cambiar
   dificultad** permite volver a elegir el nivel y comenzar una nueva partida.
 - Los bancos de `charades-words.json` deben contener palabras únicas dentro de cada dificultad.
-  Al añadir o modificar estas reglas, actualizar las pruebas de `src/app/app.spec.ts`, que
-  cubren el revelado, la cancelación, el uso de teclado, la ausencia de repeticiones y el reinicio.
+  Las consignas deben ser breves (máximo tres palabras) y fáciles de representar, evitando
+  situaciones narradas o refranes. Al añadir o modificar estas reglas, actualizar las pruebas de
+  `src/app/app.spec.ts`, que cubren el banco, el revelado, la cancelación, el uso de teclado, la
+  ausencia de repeticiones y el reinicio.
 
 ### Comportamiento que se debe conservar en Impostor
 
@@ -126,8 +128,9 @@ está abierta; no se sincronizan con otros dispositivos ni se guardan en una cue
   (ignorando mayúsculas, minúsculas y espacios adicionales). Se deben poder editar, ordenar,
   agregar o eliminar participantes, respetando el mínimo y máximo.
 - Cada ronda asigna al azar una palabra del banco categorizado, los impostores y una pista para
-  cada impostor. El banco de `impostor-words.json` debe mantener palabras únicas y al menos dos
-  pistas no vacías por palabra.
+  cada impostor. El banco de `impostor-words.json` debe mantener palabras únicas y dos pistas
+  breves y distintas (máximo cinco palabras) por palabra; deben sugerir asociaciones sin definir
+  directamente la respuesta ni repetir una pista genérica.
 - Los roles se revisan en privado pasando un mismo dispositivo, de uno en uno. La tarjeta revela
   el rol mientras se mantiene presionada y lo oculta al soltarla o cancelar la interacción; debe
   funcionar con puntero y teclado. Los jugadores normales reciben la palabra secreta y cada
