@@ -61,7 +61,8 @@ npm test
 ├── .github/
 │   └── copilot-instructions.md       # Convenciones de desarrollo
 ├── netlify.toml                      # Compilación, publicación y rutas SPA
-├── public/                           # Recursos estáticos, como el favicon
+├── public/
+│   └── favicon.svg                   # Ícono del sitio, servido también en Netlify
 └── src/
     ├── app/
     │   ├── app.routes.ts             # Rutas con carga diferida
