@@ -76,6 +76,9 @@ describe('Charadas game', () => {
     expect(CHARADES_WORDS.facil.length).toBeGreaterThan(0);
     expect(CHARADES_WORDS.intermedio.length).toBeGreaterThan(0);
     expect(CHARADES_WORDS.dificil.length).toBeGreaterThan(0);
+    expect(new Set(CHARADES_WORDS.facil).size).toBe(CHARADES_WORDS.facil.length);
+    expect(new Set(CHARADES_WORDS.intermedio).size).toBe(CHARADES_WORDS.intermedio.length);
+    expect(new Set(CHARADES_WORDS.dificil).size).toBe(CHARADES_WORDS.dificil.length);
   });
 
   it('should reveal the word only while the card is held', async () => {
@@ -99,6 +102,49 @@ describe('Charadas game', () => {
       .toBe(true);
 
     card?.dispatchEvent(new MouseEvent('pointerup', { bubbles: true, button: 0 }));
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    expect(compiled.querySelector('[data-testid="charades-word"]')).toBeNull();
+    expect(compiled.querySelector('[data-testid="charades-card"]')?.classList.contains('is-flipped'))
+      .toBe(false);
+  });
+
+  it('should hide the word when the pointer interaction is cancelled', async () => {
+    const startButton = Array.from(compiled.querySelectorAll('button'))
+      .find((button) => button.textContent?.includes('Empezar a jugar'));
+    startButton?.click();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const card = compiled.querySelector<HTMLButtonElement>('[data-testid="charades-card"]');
+    card?.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true, button: 0 }));
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(compiled.querySelector('[data-testid="charades-word"]')).toBeTruthy();
+
+    card?.dispatchEvent(new Event('pointercancel', { bubbles: true }));
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    expect(compiled.querySelector('[data-testid="charades-word"]')).toBeNull();
+    expect(card?.classList.contains('is-flipped')).toBe(false);
+  });
+
+  it('should support holding and releasing the card with the keyboard', async () => {
+    const startButton = Array.from(compiled.querySelectorAll('button'))
+      .find((button) => button.textContent?.includes('Empezar a jugar'));
+    startButton?.click();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const card = compiled.querySelector<HTMLButtonElement>('[aria-label*="Mantén presionada"]');
+    card?.dispatchEvent(new KeyboardEvent('keydown', { key: ' ', bubbles: true }));
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(compiled.querySelector('[data-testid="charades-word"]')).toBeTruthy();
+
+    card?.dispatchEvent(new KeyboardEvent('keyup', { key: ' ', bubbles: true }));
     await fixture.whenStable();
     fixture.detectChanges();
 
@@ -152,6 +198,16 @@ describe('Charadas game', () => {
 
     expect(words).toHaveLength(wordCount);
     expect(compiled.textContent).toContain('¡Banco completado!');
+
+    const restartButton = Array.from(compiled.querySelectorAll('button'))
+      .find((button) => button.textContent?.includes('Jugar de nuevo'));
+    restartButton?.click();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    expect(compiled.textContent).not.toContain('¡Banco completado!');
+    expect(compiled.textContent).toContain(`${wordCount - 1} palabras restantes`);
+    expect(compiled.querySelector('[data-testid="charades-word"]')).toBeNull();
   });
 });
 
@@ -238,8 +294,29 @@ describe('Impostor game', () => {
     expect(compiled.textContent).toContain('¿Cuántos van a jugar?');
     expect(compiled.textContent).toContain('Con 4 jugadores habrá 1 impostor.');
     expect(compiled.querySelector('input[id^="player-name-"]')).toBeNull();
+    for (let count = 4; count > 3; count -= 1) {
+      await clickButton('Quitar un jugador');
+    }
+    expect(compiled.querySelector('output')?.textContent?.trim()).toBe('3');
+    expect(compiled.querySelector<HTMLButtonElement>('button[aria-label="Quitar un jugador"]')?.disabled)
+      .toBe(true);
+    expect(compiled.textContent).toContain('Con 3 jugadores habrá 1 impostor.');
+    for (let count = 3; count < 6; count += 1) {
+      await clickButton('Agregar un jugador');
+    }
+    expect(compiled.querySelector('output')?.textContent?.trim()).toBe('6');
+    expect(compiled.textContent).toContain('Con 6 jugadores habrá 1 impostor.');
+    await clickButton('Agregar un jugador');
+    expect(compiled.querySelector('output')?.textContent?.trim()).toBe('7');
+    expect(compiled.textContent).toContain('Con 7 jugadores habrá 2 impostores.');
+    for (let count = 7; count < 12; count += 1) {
+      await clickButton('Agregar un jugador');
+    }
+    expect(compiled.querySelector('output')?.textContent?.trim()).toBe('12');
+    expect(compiled.querySelector<HTMLButtonElement>('button[aria-label="Agregar un jugador"]')?.disabled)
+      .toBe(true);
     await clickButton('Continuar');
-    expect(compiled.querySelectorAll('input[id^="player-name-"]')).toHaveLength(4);
+    expect(compiled.querySelectorAll('input[id^="player-name-"]')).toHaveLength(12);
   });
 
   it('should announce two impostors when the group has seven players', async () => {
@@ -315,6 +392,23 @@ describe('Impostor game', () => {
     expect(compiled.querySelector('ol')).toBeNull();
   });
 
+  it('should reject duplicate names regardless of letter case or extra spaces', async () => {
+    await clickButton('Continuar');
+    const inputs = compiled.querySelectorAll<HTMLInputElement>('input[id^="player-name-"]');
+    ['Ana', ' ana ', 'Cami', 'Diego'].forEach((name, index) => {
+      inputs[index].value = name;
+      inputs[index].dispatchEvent(new Event('input'));
+    });
+    await fixture.whenStable();
+    fixture.detectChanges();
+    await clickButton('Revisar participantes');
+
+    expect(compiled.textContent).toContain('Cada participante debe tener un nombre diferente.');
+    expect(compiled.querySelector('ol[aria-label="Participantes en orden de turno"]')).toBeNull();
+    expect(inputs[0].getAttribute('aria-invalid')).toBe('true');
+    expect(inputs[1].getAttribute('aria-invalid')).toBe('true');
+  });
+
   it('should let players be edited, reordered, and removed', async () => {
     await enterNames(['Ana', 'Beto', 'Cami', 'Diego']);
 
@@ -346,6 +440,28 @@ describe('Impostor game', () => {
     fixture.detectChanges();
     expect(compiled.textContent).not.toContain('Diego');
     expect(compiled.querySelectorAll('ol li')).toHaveLength(3);
+  });
+
+  it('should reject a duplicate name when editing a participant', async () => {
+    await enterNames(['Ana', 'Beto', 'Cami', 'Diego']);
+    compiled.querySelector<HTMLButtonElement>('button[aria-label="Editar a Beto"]')?.click();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const editInput = compiled.querySelector<HTMLInputElement>('input[id^="edit-player-"]');
+    expect(editInput).toBeTruthy();
+    if (editInput) {
+      editInput.value = '  ANA ';
+      editInput.dispatchEvent(new Event('input'));
+    }
+    await fixture.whenStable();
+    fixture.detectChanges();
+    await clickButton('Guardar');
+
+    expect(compiled.textContent).toContain('Ya existe un participante con ese nombre.');
+    expect(compiled.querySelector('input[id^="edit-player-"]')).toBeTruthy();
+    expect(compiled.querySelector('ol[aria-label="Participantes en orden de turno"]')?.textContent)
+      .toContain('Beto');
   });
 
   it('should show the active player and allow reordering during role review', async () => {
@@ -446,12 +562,85 @@ describe('Impostor game', () => {
       expect(compiled.textContent).toContain('3 / 3');
       expect(compiled.querySelector<HTMLButtonElement>('button[aria-label="Agregar un voto a Cami"]')?.disabled)
         .toBe(true);
+      await clickButton('Quitar un voto a Beto');
+      expect(compiled.textContent).toContain('2 / 3');
+      await clickButton('Agregar un voto a Beto');
+      expect(compiled.textContent).toContain('3 / 3');
       await clickButton('Ver resultado');
 
       expect(compiled.textContent).toContain('¡Encontraron a todos!');
       expect(compiled.querySelector('li')?.textContent).toContain('Impostor');
       await clickButton('Revelar solución');
       expect(compiled.textContent).toContain('Aeropuerto');
+    } finally {
+      randomSpy.mockRestore();
+    }
+  });
+
+  it('should report a tie when impostor and non-impostor share the highest vote count', async () => {
+    const randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0);
+
+    try {
+      await enterNames(['Ana', 'Beto', 'Cami']);
+      await clickButton('Repartir roles');
+      for (let index = 0; index < 3; index += 1) {
+        await holdRoleCard();
+        await clickButton(index === 2 ? 'Terminar reparto' : 'Siguiente participante');
+      }
+      await clickButton('Iniciar votación');
+      await addVotes('Ana', 1);
+      await addVotes('Beto', 1);
+      await addVotes('Cami', 1);
+      await clickButton('Ver resultado');
+
+      expect(compiled.textContent).toContain('La votación quedó empatada');
+    } finally {
+      randomSpy.mockRestore();
+    }
+  });
+
+  it('should report that the impostor escaped when a non-impostor leads the vote', async () => {
+    const randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0);
+
+    try {
+      await enterNames(['Ana', 'Beto', 'Cami']);
+      await clickButton('Repartir roles');
+      for (let index = 0; index < 3; index += 1) {
+        await holdRoleCard();
+        await clickButton(index === 2 ? 'Terminar reparto' : 'Siguiente participante');
+      }
+      await clickButton('Iniciar votación');
+      await addVotes('Ana', 2);
+      await addVotes('Cami', 1);
+      await clickButton('Ver resultado');
+
+      expect(compiled.textContent).toContain('El impostor escapó');
+    } finally {
+      randomSpy.mockRestore();
+    }
+  });
+
+  it('should report that both impostors were found when they share the highest vote count', async () => {
+    const randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0);
+
+    try {
+      await enterNames(['Ana', 'Beto', 'Cami', 'Diego', 'Eva', 'Fran', 'Gus']);
+      await clickButton('Repartir roles');
+      for (let index = 0; index < 7; index += 1) {
+        await holdRoleCard();
+        await clickButton(index === 6 ? 'Terminar reparto' : 'Siguiente participante');
+      }
+      await clickButton('Iniciar votación');
+      await addVotes('Ana', 1);
+      await addVotes('Beto', 3);
+      await addVotes('Cami', 3);
+      await clickButton('Ver resultado');
+
+      expect(compiled.textContent).toContain('¡Encontraron a todos!');
+      await clickButton('Revelar solución');
+      expect(compiled.textContent).toContain('Los impostores eran');
+      expect(compiled.textContent).toContain('Beto');
+      expect(compiled.textContent).toContain('Cami');
     } finally {
       randomSpy.mockRestore();
     }
