@@ -84,31 +84,31 @@
           aria-live="polite"
           aria-atomic="true"
         >
-          <div
+          <span
             class="flip-card-inner"
             [class.is-flipped]="revealed()"
             data-testid="charades-card"
           >
-            <div
+            <span
               class="flip-card-face flip-card-front rounded-xl border border-amber-900/10 bg-white px-4 py-5"
               [attr.aria-hidden]="revealed()"
             >
-              <p class="mb-0 font-display text-4xl font-medium tracking-tight text-accent-dark sm:text-5xl">
+              <span class="block font-display text-4xl font-medium tracking-tight text-accent-dark sm:text-5xl">
                 ¿Listo para actuar?
-              </p>
-              <p class="mb-0 mt-3 text-sm text-muted">Pasa el dispositivo al jugador antes de revelar.</p>
-            </div>
-            <div
+              </span>
+              <span class="mt-3 block text-sm text-muted">Pasa el dispositivo al jugador antes de revelar.</span>
+            </span>
+            <span
               class="flip-card-face flip-card-back rounded-xl border border-amber-200 bg-white px-4 py-5"
               [attr.aria-hidden]="!revealed()"
             >
               @if (revealed()) {
-                <p data-testid="charades-word" class="mb-0 break-words font-display text-4xl font-medium tracking-tight text-ink sm:text-5xl">
+                <span data-testid="charades-word" class="block break-words font-display text-4xl font-medium tracking-tight text-ink sm:text-5xl">
                   {{ word }}
-                </p>
+                </span>
               }
-            </div>
-          </div>
+            </span>
+          </span>
         </button>
 
         <div class="flex flex-col gap-3 sm:flex-row">
