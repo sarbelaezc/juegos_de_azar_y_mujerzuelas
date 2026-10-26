@@ -34,6 +34,9 @@ describe('Home', () => {
     expect(repositoryLink?.getAttribute('href'))
       .toBe('https://github.com/sarbelaezc/juegos_de_azar_y_mujerzuelas');
     expect(repositoryLink?.getAttribute('rel')).toContain('noopener');
+    expect(repositoryLink?.getAttribute('aria-label')).toContain('GitHub');
+    expect(repositoryLink?.querySelector('svg')).toBeTruthy();
+    expect(repositoryLink?.textContent?.trim()).toBe('');
   });
 });
 
