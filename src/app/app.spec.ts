@@ -92,6 +92,8 @@ describe('Charadas game', () => {
     expect(new Set(CHARADES_WORDS.facil).size).toBe(CHARADES_WORDS.facil.length);
     expect(new Set(CHARADES_WORDS.intermedio).size).toBe(CHARADES_WORDS.intermedio.length);
     expect(new Set(CHARADES_WORDS.dificil).size).toBe(CHARADES_WORDS.dificil.length);
+    expect(Object.values(CHARADES_WORDS).flat().every((word) => word.trim().split(/\s+/).length <= 3))
+      .toBe(true);
   });
 
   it('should reveal the word only while the card is held', async () => {
@@ -420,6 +422,18 @@ describe('Impostor game', () => {
     ))
       .toBe(true);
     expect(new Set(entries.map((entry) => entry.word)).size).toBe(entries.length);
+    const normalize = (value: string) =>
+      value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    const hints = entries.flatMap((entry) => entry.hints);
+
+    expect(new Set(hints.map(normalize)).size).toBe(hints.length);
+    expect(entries.every((entry) =>
+      entry.hints.every((hint) =>
+        hint.trim().split(/\s+/).length <= 5 &&
+        !normalize(hint).includes(normalize(entry.word)),
+      ),
+    ))
+      .toBe(true);
   });
 
   it('should require a name for every player before continuing', async () => {
@@ -568,7 +582,7 @@ describe('Impostor game', () => {
       expect(compiled.querySelector('[data-testid="impostor-category"]')?.textContent?.trim())
         .toBe('Lugares');
       expect(compiled.querySelector('[data-testid="impostor-hint"]')?.textContent?.trim())
-        .toBe('Aquí se espera antes de viajar.');
+        .toBe(IMPOSTOR_WORDS.Lugares[0].hints[0]);
       expect(compiled.querySelector('[data-testid="secret-word"]')).toBeNull();
       await releaseRoleCard();
       expect(compiled.querySelector('[data-testid="impostor-category"]')).toBeNull();
