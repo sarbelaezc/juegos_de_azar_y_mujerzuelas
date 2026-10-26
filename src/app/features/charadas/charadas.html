@@ -1,0 +1,158 @@
+<div class="mx-auto flex min-h-screen w-[calc(100%-2rem)] max-w-[760px] flex-col sm:w-[calc(100%-3rem)]">
+  <app-site-header backLink="/" />
+  <main class="flex flex-1 flex-col">
+    <section class="flex flex-1 flex-col justify-center py-8 sm:py-16" aria-labelledby="charadas-title">
+    <span class="mb-4 grid size-14 place-items-center rounded-2xl bg-amber-100 text-3xl sm:mb-6" aria-hidden="true">
+      🎭
+    </span>
+    <p class="mb-2 text-xs font-bold uppercase tracking-[0.11em] text-accent-dark sm:mb-3">A jugar en grupo</p>
+    <h1 id="charadas-title" class="mb-3 font-display text-5xl font-medium tracking-[-0.06em] text-ink sm:text-7xl">
+      Charadas
+    </h1>
+    <p class="mb-6 max-w-xl text-base leading-7 text-muted sm:mb-8 sm:text-lg">
+      Actúa la palabra sin hablar. Elige una dificultad, pasa el dispositivo a quien actúa y
+      ¡que los demás adivinen!
+    </p>
+
+    @if (!started()) {
+      <div class="rounded-2xl border border-amber-900/10 bg-gradient-to-br from-white to-amber-50/70 p-4 shadow-[0_18px_50px_rgb(49_41_28_/_7%)] sm:p-7">
+        <div class="mb-4">
+          <label for="difficulty" class="block text-base font-bold text-ink">Elige la dificultad</label>
+        </div>
+
+        <div class="grid grid-cols-1 gap-2 sm:grid-cols-3" role="group" aria-label="Seleccionar dificultad">
+          @for (option of difficulties; track option.value) {
+            <button
+              class="min-h-11 rounded-xl border px-4 py-3 text-left transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-dark"
+              [class.border-accent-dark]="difficulty() === option.value"
+              [class.bg-amber-100]="difficulty() === option.value"
+              [class.text-accent-dark]="difficulty() === option.value"
+              [class.border-line]="difficulty() !== option.value"
+              [class.bg-white]="difficulty() !== option.value"
+              [class.text-ink]="difficulty() !== option.value"
+              [attr.aria-pressed]="difficulty() === option.value"
+              type="button"
+              (click)="setDifficulty(option.value)"
+            >
+              <span class="block text-sm font-bold">{{ option.label }}</span>
+            </button>
+          }
+        </div>
+
+        <div class="mt-4 min-h-14 rounded-xl border border-amber-900/10 bg-white/75 px-4 py-3">
+          @for (option of difficulties; track option.value) {
+            @if (difficulty() === option.value) {
+              <p class="mb-0 text-sm leading-6 text-muted">{{ option.description }}</p>
+            }
+          }
+        </div>
+        <p class="mb-0 mt-3 text-xs text-muted">
+          <span class="font-bold text-accent-dark">{{ bankSize() }} palabras</span> disponibles · no se repiten hasta terminar el banco.
+        </p>
+        <button
+          class="mt-6 w-full rounded-xl bg-accent-dark px-5 py-3.5 font-bold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-ink hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-dark"
+          type="button"
+          (click)="startGame()"
+        >
+          Empezar a jugar
+        </button>
+      </div>
+    } @else if (currentWord(); as word) {
+      <div class="rounded-2xl border border-amber-200 bg-amber-50 p-4 sm:p-8">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <span class="rounded-full border border-amber-900/15 bg-white/70 px-3 py-1.5 text-xs font-bold text-accent-dark">
+            {{ difficulty() === 'facil' ? 'Fácil' : difficulty() === 'intermedio' ? 'Intermedio' : 'Difícil' }}
+          </span>
+          <span class="text-sm text-muted" aria-live="polite">
+            {{ remainingCount() }} {{ remainingCount() === 1 ? 'palabra restante' : 'palabras restantes' }}
+          </span>
+        </div>
+
+        <button
+          class="flip-card reveal-card my-8 w-full text-center sm:my-10"
+          type="button"
+          aria-label="Mantén presionada la tarjeta para ver la palabra y suéltala para ocultarla"
+          [attr.aria-pressed]="revealed()"
+          (pointerdown)="revealWord($event)"
+          (pointerup)="hideWord()"
+          (pointercancel)="hideWord()"
+          (pointerleave)="hideWord()"
+          (lostpointercapture)="hideWord()"
+          (keydown)="revealWordWithKeyboard($event)"
+          (keyup)="hideWordWithKeyboard($event)"
+          (blur)="hideWord()"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          <div
+            class="flip-card-inner"
+            [class.is-flipped]="revealed()"
+            data-testid="charades-card"
+          >
+            <div
+              class="flip-card-face flip-card-front rounded-xl border border-amber-900/10 bg-white px-4 py-5"
+              [attr.aria-hidden]="revealed()"
+            >
+              <p class="mb-0 font-display text-4xl font-medium tracking-tight text-accent-dark sm:text-5xl">
+                ¿Listo para actuar?
+              </p>
+              <p class="mb-0 mt-3 text-sm text-muted">Pasa el dispositivo al jugador antes de revelar.</p>
+            </div>
+            <div
+              class="flip-card-face flip-card-back rounded-xl border border-amber-200 bg-white px-4 py-5"
+              [attr.aria-hidden]="!revealed()"
+            >
+              @if (revealed()) {
+                <p data-testid="charades-word" class="mb-0 break-words font-display text-4xl font-medium tracking-tight text-ink sm:text-5xl">
+                  {{ word }}
+                </p>
+              }
+            </div>
+          </div>
+        </button>
+
+        <div class="flex flex-col gap-3 sm:flex-row">
+          <button
+            class="min-h-12 flex-1 rounded-xl border border-amber-900/20 bg-white px-5 py-3.5 font-bold text-accent-dark transition hover:bg-amber-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-dark"
+            type="button"
+            (click)="nextWord()"
+          >
+            Siguiente palabra
+          </button>
+        </div>
+        <button
+          class="mt-5 w-full rounded py-2 text-sm font-semibold text-muted underline-offset-4 hover:text-ink hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-dark"
+          type="button"
+          (click)="backToSetup()"
+        >
+          Cambiar dificultad
+        </button>
+      </div>
+    } @else {
+      <div class="rounded-2xl border border-line bg-surface p-6 text-center sm:p-8" aria-live="polite">
+        <p class="mb-2 font-display text-3xl font-medium text-ink">¡Banco completado!</p>
+        <p class="mb-6 text-sm leading-6 text-muted">
+          Ya salieron todas las palabras de esta dificultad. Puedes volver a empezar para mezclarlas
+          de nuevo o elegir otro nivel.
+        </p>
+        <div class="flex flex-col justify-center gap-3 sm:flex-row">
+          <button
+            class="rounded-xl bg-accent-dark px-5 py-3 font-bold text-white transition hover:bg-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-dark"
+            type="button"
+            (click)="restartGame()"
+          >
+            Jugar de nuevo
+          </button>
+          <button
+            class="rounded-xl border border-line-strong bg-white px-5 py-3 font-bold text-ink transition hover:bg-page focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-dark"
+            type="button"
+            (click)="backToSetup()"
+          >
+            Cambiar dificultad
+          </button>
+        </div>
+      </div>
+    }
+    </section>
+  </main>
+</div>
