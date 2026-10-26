@@ -84,6 +84,18 @@ categorías y cada palabra contiene varias pistas.
 Los nombres y el estado de una partida se mantienen en el dispositivo mientras la aplicación
 está abierta; no se sincronizan con otros dispositivos ni se guardan en una cuenta o backend.
 
+### Comportamiento que se debe conservar en el catálogo
+
+- Cada juego disponible en el proyecto debe tener su propia tarjeta en el home y un enlace a su
+  propia pantalla; no agrupar juegos distintos en una misma tarjeta.
+- Cada juego debe tener una sección independiente en este README que describa su comportamiento
+  esperado y las reglas que deben preservarse. Actualiza esa sección al añadir un juego o cambiar
+  intencionalmente su funcionalidad.
+- Cada tarjeta de juego completa debe ser un enlace accesible a su juego, no solo el texto de
+  acción dentro de la tarjeta. Evita anidar enlaces u otros controles interactivos en ella.
+- Las tarjetas muestran información breve y útil, como el número de participantes, y tienen un
+  indicador visible de que se puede entrar al juego.
+
 ### Comportamiento que se debe conservar en Charadas
 
 - Debe haber tres dificultades seleccionables: fácil, intermedio y difícil. Cada una usa su
