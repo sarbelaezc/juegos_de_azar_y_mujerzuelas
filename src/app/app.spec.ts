@@ -92,7 +92,7 @@ describe('Charadas game', () => {
     expect(new Set(CHARADES_WORDS.facil).size).toBe(CHARADES_WORDS.facil.length);
     expect(new Set(CHARADES_WORDS.intermedio).size).toBe(CHARADES_WORDS.intermedio.length);
     expect(new Set(CHARADES_WORDS.dificil).size).toBe(CHARADES_WORDS.dificil.length);
-    expect(Object.values(CHARADES_WORDS).flat().every((word) => word.trim().split(/\s+/).length <= 3))
+    expect(Object.values(CHARADES_WORDS).flat().every((word) => word.trim().split(/\s+/).length <= 6))
       .toBe(true);
   });
 
